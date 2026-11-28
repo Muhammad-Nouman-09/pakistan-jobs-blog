@@ -1,54 +1,45 @@
-# Pakistan Jobs Blog — Next.js (serverless)
+# Pakistan Jobs Portal
 
-Next.js App Router port of the static site in the parent folder. The old
-localStorage logic is now serverless API routes (`app/api/**`), so jobs,
-accounts and messages are shared across visitors.
+A bilingual (English `/en`, Urdu `/ur` right-to-left), multi-company job portal built on **Next.js 15 (App Router) + TypeScript + Supabase** (Postgres, Auth, Storage, Row Level Security), deployed on Vercel. It evolved from the original "Pakistan Jobs Blog" and keeps its look and feel.
 
-## Run locally
+* **Three account types:** Super Admin, Employer (multi-company, owner / recruiter / viewer roles), Job Seeker.
+* **Admin-approved publishing:** every job (and every edit to a live job) is reviewed before the public sees it; the last approved version stays online while a revision is pending.
+* **Internal and external applications:** external ones are tracked only as link clicks, never shown as "submitted".
+* **Resumes:** structured builder, PDF upload to a private bucket, signed-URL access only.
+* **SEO / AdSense-ready:** server-rendered pages, `JobPosting` schema, hreflang, sitemap, robots, `ads.txt`, original blog content. (No approval is promised or implied.)
 
-```
+> **Status:** all nine phases are implemented and the test suite passes, but the app has **not yet been run against a live Supabase project** (none was available when it was built). Read [`context.md`](context.md) → *Known issues* and [`docs/deployment.md`](docs/deployment.md) before going live.
+
+## Quick start
+
+```bash
 npm install
-cp .env.example .env.local   # set AUTH_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD
-npm run dev
+cp .env.example .env.local          # fill in the Supabase values (see docs/deployment.md)
+# apply supabase/migrations/*.sql to your Supabase project (supabase db push, or paste them in order)
+npm run dev                         # http://localhost:3000  (redirects to /en)
+npm run admin:provision             # promote your account to Super Admin (ADMIN_EMAIL=you@example.com)
 ```
 
-Without Redis credentials, dev data is stored in `.data/db.json`.
+Without Supabase variables the site still builds and runs, showing a "backend not configured" notice instead of data.
 
-## Deploy (Vercel)
+## Scripts
 
-1. Import this folder as a project (root directory `nextjs-app`).
-2. Add the **Upstash Redis** integration (Marketplace), which sets
-   `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`.
-3. Set `AUTH_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`. The admin account is
-   created on first request if no admin exists. Change the password afterwards.
-
-## API
-
-| Route | Access |
+| Command | What it does |
 |---|---|
-| `GET /api/jobs` | public, published jobs |
-| `GET /api/jobs?scope=manage` | admin (all) / verified employer (own) |
-| `POST /api/jobs`, `PUT/DELETE /api/jobs/[id]` | admin, or verified employer for own jobs |
-| `POST /api/auth/register`, `/login`, `/logout`, `GET /api/auth/me` | public / session |
-| `PATCH /api/profile` | signed in |
-| `GET /api/users`, `PATCH/DELETE /api/users/[id]` | admin |
-| `POST /api/messages` | public; `GET`, `PATCH`, `DELETE` admin |
-| `GET /api/settings`, `PUT /api/settings` | public read / admin write (AdSense) |
+| `npm run dev` / `build` / `start` | Next.js |
+| `npm run typecheck` | `tsc --noEmit` (strict) |
+| `npm run lint` | ESLint (`next lint`) |
+| `npm test` | all tests (database + unit) |
+| `npm run test:db` | migrations + RLS/permission tests on in-process Postgres (PGlite) |
+| `npm run test:unit` | validators, i18n coverage, SEO/JSON-LD, markdown/XSS, uploads, legacy transform |
+| `npm run admin:provision` | the only way to create a Super Admin |
+| `npm run migrate:legacy` | dry-run (default) / `-- --apply` migration of the old Redis data |
 
-## What changed vs. the static version
+## Documentation
 
-- Passwords hashed with bcrypt; sessions are signed JWTs in an httpOnly cookie.
-  The old hard-coded demo admin password is gone.
-- All permission checks (employer owns job, only admin sets Featured, pending
-  employers blocked, `javascript:` apply links rejected) now run on the server.
-- Unpublished jobs are no longer visible through the public detail view.
+* [`context.md`](context.md) — project memory: status, decisions, test results, known issues, remaining work
+* [`docs/architecture.md`](docs/architecture.md) · [`docs/database.md`](docs/database.md) · [`docs/permissions.md`](docs/permissions.md)
+* [`docs/api.md`](docs/api.md) · [`docs/seo.md`](docs/seo.md) · [`docs/deployment.md`](docs/deployment.md) · [`docs/migration.md`](docs/migration.md)
+* [`docs/dev-conventions.md`](docs/dev-conventions.md) — how to add pages/actions/strings
 
-## Known limits
-
-- Data is stored as one JSON value per collection (jobs, users, messages), so
-  two simultaneous writes can overwrite each other. Fine for a small blog;
-  move to a real database (e.g. Supabase/Postgres) if traffic grows.
-- No rate limiting on login/register/contact. Add one (e.g. `@upstash/ratelimit`)
-  before going public.
-- AdSense settings are saved and editable, but the page does not yet inject the
-  AdSense script (the static version didn't either).
+The original v1 code (Next.js + Upstash Redis) is preserved in [`legacy/v1/`](legacy/v1) (excluded from the build).

@@ -1,0 +1,33 @@
+# Supabase CLI configuration (local development: `supabase start`, and `supabase db push` for a linked project).
+# Hosted projects are configured in the Supabase dashboard — see docs/deployment.md for the REQUIRED auth settings.
+project_id = "pakistan-jobs-portal"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+
+[db]
+port = 54322
+major_version = 17
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000/auth/callback"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+# REQUIRED: users must confirm their e-mail before they can sign in (the database also refuses actions
+# from unconfirmed accounts).
+enable_confirmations = true
+double_confirm_changes = true
+secure_password_change = true
+max_frequency = "60s"
+
+[storage]
+enabled = true
+file_size_limit = "12MiB"

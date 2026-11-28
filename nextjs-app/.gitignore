@@ -3,3 +3,6 @@ node_modules
 .data
 .env
 .env*.local
+migration-report-*.json
+*.tsbuildinfo
+next-env.d.ts

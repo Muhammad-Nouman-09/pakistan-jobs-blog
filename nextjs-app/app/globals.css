@@ -188,3 +188,102 @@ footer a:hover { color: var(--dark-green); }
   .hero { padding: 40px 16px 32px; }
   .detail th { width: 120px; }
 }
+
+/* =====================================================================================================
+   Portal additions (v2). Everything above is the original design, unchanged. Below: extra badge colours,
+   dashboard helpers, pagination, breadcrumbs, ad slots, and right-to-left / Urdu support.
+   ===================================================================================================== */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--dark-green); color: #fff; padding: 10px 16px; z-index: 100; }
+.skip-link:focus { left: 8px; top: 8px; }
+:focus-visible { outline: 3px solid var(--bright-green); outline-offset: 2px; }
+
+.badge-red { background: var(--red-soft); color: var(--red); }
+.badge-gray { background: #f3f4f6; color: var(--ink-soft); }
+.badge-amber { background: #fef3c7; color: #92400e; }
+.badge-blue { background: #e0f2fe; color: #075985; }
+
+.lang-switch { display: inline-flex; align-items: center; }
+.lang-switch a { font-weight: 700; font-size: 14px; padding: 6px 10px; border: 2px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none; }
+.lang-switch a:hover { border-color: var(--dark-green); color: var(--dark-green); }
+
+.breadcrumb { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; }
+.breadcrumb ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.breadcrumb li + li::before { content: "/"; margin-inline-end: 8px; color: var(--line); }
+.breadcrumb a { color: var(--ink-soft); }
+
+.pagination { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin: 24px 0; }
+.pagination .btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+
+.admin-tabs a, .tabs a { padding: 9px 16px; border: 2px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-weight: 600; text-decoration: none; color: var(--ink); }
+.admin-tabs a:hover, .tabs a:hover { border-color: var(--dark-green); color: var(--dark-green); }
+.admin-tabs a.active, .tabs a.active { background: var(--dark-green); color: #fff; border-color: var(--dark-green); }
+
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 0 0 24px; }
+.stat-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.stat-card b { display: block; font-size: 28px; line-height: 1.15; }
+.stat-card span { color: var(--ink-soft); font-size: 14px; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin: 0 0 20px; }
+.panel h2 { margin-top: 0; font-size: 22px; }
+.table-wrap { overflow-x: auto; }
+table.data { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.data th, table.data td { text-align: start; border-bottom: 1px solid var(--line); padding: 10px 8px; vertical-align: top; }
+table.data th { color: var(--ink-soft); font-weight: 700; white-space: nowrap; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.row-actions form { display: inline; }
+.inline-form { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.inline-form select, .inline-form input { width: auto; padding: 8px 10px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 0 0 16px; align-items: end; }
+.filters label { margin: 0 0 4px; font-size: 13px; }
+.logo-img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: #e8f5e9; }
+.job-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.company-hero { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
+.company-hero .logo-img { width: 72px; height: 72px; }
+.prose { max-width: 760px; }
+.prose h2 { font-size: 24px; margin: 28px 0 8px; } .prose h3 { font-size: 19px; margin: 20px 0 6px; }
+.prose img { max-width: 100%; height: auto; }
+.prose ul, .prose ol { padding-inline-start: 22px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.card h3 { margin: 0 0 6px; font-size: 18px; } .card h3 a { color: var(--ink); text-decoration: none; } .card h3 a:hover { color: var(--dark-green); }
+.ad-slot { margin: 24px 0; text-align: center; min-height: 90px; }
+.ad-label { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.timeline { list-style: none; margin: 0; padding: 0; } .timeline li { border-inline-start: 3px solid var(--bright-green); padding: 4px 12px; margin: 0 0 10px; }
+.hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }   /* honeypot field for the contact form */
+
+@media (max-width: 860px) {
+  .main-nav { flex-wrap: wrap; gap: 10px 16px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .company-hero { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---- Right-to-left (Urdu) ---- */
+[dir="rtl"] .header-actions { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .job-actions { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .notice { border-left: 0; border-right: 4px solid var(--bright-green); border-radius: 8px 0 0 8px; }
+[dir="rtl"] .notice.warn { border-right-color: var(--red); }
+[dir="rtl"] .msg.unread { border-left: 1px solid var(--line); border-right: 4px solid var(--bright-green); }
+[dir="rtl"] .detail th, [dir="rtl"] .detail td, [dir="rtl"] .hero-cards { text-align: right; }
+[dir="rtl"] .hero-label { text-align: right; }
+[dir="rtl"] .logo-sub { letter-spacing: 0; }
+[dir="rtl"] .pagination .btn svg, [dir="rtl"] .flip-rtl { transform: scaleX(-1); }
+[dir="rtl"] .skip-link { left: auto; right: -9999px; } [dir="rtl"] .skip-link:focus { right: 8px; left: auto; }
+html[lang="ur"] body {
+  font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Naskh Arabic", "Segoe UI", Tahoma, "Geeza Pro", Arial, sans-serif;
+  line-height: 1.95;
+}
+html[lang="ur"] .btn, html[lang="ur"] .stat span, html[lang="ur"] .job-meta { letter-spacing: 0; }
+html[lang="ur"] h1, html[lang="ur"] h2, html[lang="ur"] h3 { line-height: 1.6; }
+/* Numbers, emails, URLs inside RTL text stay left-to-right. */
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+input[type="email"], input[type="url"], input[type="tel"], input[type="password"] { direction: ltr; text-align: start; }
+[dir="rtl"] input[type="email"], [dir="rtl"] input[type="url"], [dir="rtl"] input[type="tel"], [dir="rtl"] input[type="password"] { text-align: right; }
+
+/* ---- Print (candidate resume preview -> "Save as PDF") ---- */
+@media print {
+  .site-header, footer, .skip-link, .no-print { display: none !important; }
+  .section { padding: 0; }
+  .container { max-width: none; padding: 0; }
+  .resume-doc { border: 0; padding: 0; margin: 0; }
+}

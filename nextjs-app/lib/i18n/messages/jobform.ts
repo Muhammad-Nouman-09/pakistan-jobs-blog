@@ -1,0 +1,45 @@
+// Shared job editor (employer + admin) and job workflow notices.
+export const jobform = {
+  en: {
+    "jobform.basics": "Job basics", "jobform.company": "Company", "jobform.chooseCompany": "Choose a company…", "jobform.category": "Category",
+    "jobform.mainLanguage": "Main language", "jobform.sector": "Sector", "jobform.employmentType": "Employment type", "jobform.workplaceType": "Workplace type",
+    "jobform.vacancies": "Number of vacancies", "jobform.deadline": "Application deadline",
+    "jobform.locationSalary": "Location and salary", "jobform.city": "City", "jobform.salaryMin": "Minimum salary", "jobform.salaryMax": "Maximum salary",
+    "jobform.currency": "Currency", "jobform.period": "Per",
+    "jobform.application": "How candidates apply", "jobform.applicationHelp": "Apply on this site: candidates send their resume through the portal and you manage them in Applications. External: candidates are sent to your website or email; those applications are not tracked here and are never shown as submitted.",
+    "jobform.method": "Application method", "jobform.externalUrl": "Official application link", "jobform.externalEmail": "Application email",
+    "jobform.questions": "Screening questions (optional)", "jobform.questionsHelp": "Up to 5 short questions, only used when candidates apply on this site.", "jobform.question": "Question",
+    "jobform.f.title": "Job title", "jobform.f.description": "Job description", "jobform.f.responsibilities": "Responsibilities", "jobform.f.requirements": "Requirements",
+    "jobform.f.benefits": "Benefits", "jobform.f.experience": "Experience required", "jobform.f.education": "Education required",
+    "jobform.f.salary_text": "Salary note (e.g. BPS-11, as per government scale)", "jobform.f.how_to_apply": "Application instructions",
+    "jobform.translationNote": "Write the job in English, Urdu or both. Nothing is translated automatically — a language you leave empty is simply not shown in that language.",
+    "jobform.source": "Source (optional)", "jobform.sourceHelp": "Where this vacancy was announced, e.g. the official advertisement. Shown to reviewers.",
+    "jobform.saveDraft": "Save draft", "jobform.saveSubmit": "Save and submit for review",
+    "jobform.reviewNote": "Every job is reviewed by our team before it is published. You will be notified of the decision.",
+    "jobform.revisionNote": "This job is live. Saving creates a new draft revision; the approved version stays online until the revision is approved.",
+    "jobform.saved": "Draft saved.", "jobform.submitted": "Submitted for review. You will be notified when it is approved.",
+    "jobform.op_withdraw": "The job was withdrawn from review and is a draft again.", "jobform.op_archive": "The job was archived and taken offline.",
+    "jobform.op_restore": "The job was restored as a draft.", "jobform.op_submit": "Submitted for review."
+  },
+  ur: {
+    "jobform.basics": "نوکری کی بنیادی معلومات", "jobform.company": "کمپنی", "jobform.chooseCompany": "کمپنی منتخب کریں…", "jobform.category": "زمرہ",
+    "jobform.mainLanguage": "بنیادی زبان", "jobform.sector": "شعبہ", "jobform.employmentType": "ملازمت کی قسم", "jobform.workplaceType": "کام کی جگہ",
+    "jobform.vacancies": "آسامیوں کی تعداد", "jobform.deadline": "درخواست کی آخری تاریخ",
+    "jobform.locationSalary": "مقام اور تنخواہ", "jobform.city": "شہر", "jobform.salaryMin": "کم از کم تنخواہ", "jobform.salaryMax": "زیادہ سے زیادہ تنخواہ",
+    "jobform.currency": "کرنسی", "jobform.period": "فی",
+    "jobform.application": "امیدوار درخواست کیسے دیں", "jobform.applicationHelp": "اسی سائٹ پر درخواست: امیدوار پورٹل کے ذریعے اپنا ریزیومے بھیجتے ہیں اور آپ درخواستوں کے حصے میں انہیں سنبھالتے ہیں۔ بیرونی: امیدوار آپ کی ویب سائٹ یا ای میل پر بھیجے جاتے ہیں؛ ایسی درخواستیں یہاں ٹریک نہیں ہوتیں اور کبھی جمع شدہ ظاہر نہیں کی جاتیں۔",
+    "jobform.method": "درخواست کا طریقہ", "jobform.externalUrl": "سرکاری درخواست کا لنک", "jobform.externalEmail": "درخواست کا ای میل",
+    "jobform.questions": "جانچ کے سوالات (اختیاری)", "jobform.questionsHelp": "زیادہ سے زیادہ 5 مختصر سوالات، صرف اس صورت میں جب امیدوار اسی سائٹ پر درخواست دیں۔", "jobform.question": "سوال",
+    "jobform.f.title": "نوکری کا عنوان", "jobform.f.description": "نوکری کی تفصیل", "jobform.f.responsibilities": "ذمہ داریاں", "jobform.f.requirements": "تقاضے",
+    "jobform.f.benefits": "فوائد", "jobform.f.experience": "مطلوبہ تجربہ", "jobform.f.education": "مطلوبہ تعلیم",
+    "jobform.f.salary_text": "تنخواہ کا نوٹ (مثلاً BPS-11، سرکاری اسکیل کے مطابق)", "jobform.f.how_to_apply": "درخواست دینے کی ہدایات",
+    "jobform.translationNote": "نوکری انگریزی، اردو یا دونوں میں لکھیں۔ کچھ بھی خودکار طور پر ترجمہ نہیں ہوتا — جو زبان خالی چھوڑی جائے وہ اس زبان میں نہیں دکھائی جاتی۔",
+    "jobform.source": "ماخذ (اختیاری)", "jobform.sourceHelp": "یہ آسامی کہاں شائع ہوئی، مثلاً سرکاری اشتہار۔ جائزہ لینے والوں کو دکھایا جاتا ہے۔",
+    "jobform.saveDraft": "مسودہ محفوظ کریں", "jobform.saveSubmit": "محفوظ کریں اور جائزے کے لیے جمع کرائیں",
+    "jobform.reviewNote": "ہر نوکری شائع ہونے سے پہلے ہماری ٹیم جانچتی ہے۔ فیصلے سے آپ کو آگاہ کیا جائے گا۔",
+    "jobform.revisionNote": "یہ نوکری لائیو ہے۔ محفوظ کرنے سے نیا مسودہ بنتا ہے؛ منظور شدہ ورژن اس وقت تک آن لائن رہتا ہے جب تک نیا ورژن منظور نہ ہو۔",
+    "jobform.saved": "مسودہ محفوظ ہو گیا۔", "jobform.submitted": "جائزے کے لیے جمع کرا دی گئی۔ منظوری پر آپ کو اطلاع ملے گی۔",
+    "jobform.op_withdraw": "نوکری جائزے سے واپس لے لی گئی اور دوبارہ مسودہ ہے۔", "jobform.op_archive": "نوکری محفوظ شدہ میں منتقل ہو گئی اور آف لائن ہو گئی۔",
+    "jobform.op_restore": "نوکری مسودے کے طور پر بحال ہو گئی۔", "jobform.op_submit": "جائزے کے لیے جمع کرا دی گئی۔"
+  }
+};
