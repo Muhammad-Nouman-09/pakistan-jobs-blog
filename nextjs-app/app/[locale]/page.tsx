@@ -57,7 +57,11 @@ export default async function Home(props: PageProps) {
           </div>
         </div>
         {!latest.configured && <div className="container"><SetupNotice t={t} /></div>}
-        <div className="hero-cards">{soon.rows.map((j) => <JobCard key={j.job_id} job={j} locale={locale} t={t} />)}</div>
+        <div className="hero-cards">
+          {soon.error ? <p className="notice">{t("err.generic")}</p>
+            : soon.rows.length === 0 ? <p className="notice">{t("jobs.noClosing")}</p>
+            : soon.rows.map((j) => <JobCard key={j.job_id} job={j} locale={locale} t={t} />)}
+        </div>
       </section>
 
       <section className="section section-soft">
@@ -97,7 +101,9 @@ export default async function Home(props: PageProps) {
           <h2>{t("home.latestTitle")}</h2>
           <p className="sub">{t("home.latestSub")} <Link href={l("/jobs")}>{t("home.seeAll")}</Link></p>
           <div className="job-grid">
-            {latest.configured && !latest.rows.length ? <p>{t("home.noJobs")}</p> : latest.rows.map((j) => <JobCard key={j.job_id} job={j} locale={locale} t={t} />)}
+            {latest.error ? <p className="notice">{t("err.generic")}</p>
+              : latest.configured && !latest.rows.length ? <p>{t("home.noJobs")}</p>
+              : latest.rows.map((j) => <JobCard key={j.job_id} job={j} locale={locale} t={t} />)}
           </div>
           <AdSlot slot="inFeed" locale={locale} />
           <p className="notice" style={{ marginTop: 20 }}><strong>{t("home.safeTitle")}</strong> {t("home.safeText")}</p>

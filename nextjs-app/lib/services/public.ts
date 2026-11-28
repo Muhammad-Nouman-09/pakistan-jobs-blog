@@ -15,9 +15,13 @@ export interface JobSearchParams {
 
 export const JOBS_PER_PAGE = 20;
 
-export async function searchJobs(p: JobSearchParams, locale: Locale): Promise<{ rows: JobListItem[]; total: number; configured: boolean }> {
+/**
+ * `error: true` means the request FAILED. Callers must show an error, never an "empty" message, for a failure.
+ * `loaded` is only true after a successful response, so pages can tell "no results" from "not loaded".
+ */
+export async function searchJobs(p: JobSearchParams, locale: Locale): Promise<{ rows: JobListItem[]; total: number; configured: boolean; error: boolean }> {
   const supabase = createAnonClient();
-  if (!supabase) return { rows: [], total: 0, configured: false };
+  if (!supabase) return { rows: [], total: 0, configured: false, error: false };
   const size = p.pageSize ?? JOBS_PER_PAGE;
   const page = Math.max(1, p.page ?? 1);
   const { data, error } = await supabase.rpc("search_jobs", {
@@ -28,10 +32,10 @@ export async function searchJobs(p: JobSearchParams, locale: Locale): Promise<{ 
   } as Record<string, unknown>);
   if (error) {
     console.error("[search_jobs]", error.message);
-    return { rows: [], total: 0, configured: true };
+    return { rows: [], total: 0, configured: true, error: true };
   }
   const rows = (data ?? []) as JobListItem[];
-  return { rows, total: rows.length ? Number(rows[0].total_count) : 0, configured: true };
+  return { rows, total: rows.length ? Number(rows[0].total_count) : 0, configured: true, error: false };
 }
 
 export interface Facets {

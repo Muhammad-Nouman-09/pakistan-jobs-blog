@@ -4,7 +4,7 @@ import Flash from "@/components/ui/Flash";
 import Pagination from "@/components/ui/Pagination";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { JOB_FILTERS, listJobs, PAGE_SIZE } from "@/lib/services/admin";
-import { formatDate } from "@/lib/utils";
+import { formatDate, todayPK } from "@/lib/utils";
 import { one, pageParam } from "@/lib/utils";
 import { type PageProps } from "@/lib/page";
 import { adminPage } from "../_ctx";
@@ -52,7 +52,8 @@ export default async function AdminJobsPage(props: PageProps) {
                   </td>
                   <td><Link href={path(`/companies/${j.company_id}`)}>{j.company_name}</Link></td>
                   <td>{j.city ?? "—"}</td>
-                  <td><StatusBadge kind="jobStatus" value={j.status} t={t} /></td>
+                  {/* Approved jobs past their deadline are shown as Expired. The stored status is not changed here. */}
+                  <td><StatusBadge kind="jobStatus" value={j.status === "approved" && j.deadline && j.deadline < todayPK() ? "expired" : j.status} t={t} /></td>
                   <td>{formatDate(j.deadline, locale)}</td>
                   <td>{formatDate(j.updated_at, locale)}</td>
                 </tr>

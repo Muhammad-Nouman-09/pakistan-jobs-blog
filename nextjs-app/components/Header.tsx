@@ -21,6 +21,15 @@ const dash = { admin: "/admin", employer: "/employer", job_seeker: "/candidate" 
 export default function Header({ locale, labels }: { locale: Locale; labels: HeaderLabels }) {
   const pathname = stripLocale(usePathname() || "/");
   const [user, setUser] = useState<SessionUser | undefined>(undefined);
+  const [open, setOpen] = useState(false);
+  // Close the mobile menu on navigation and on Escape.
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
   useEffect(() => {
     let live = true;
     fetch("/api/session", { cache: "no-store" })
@@ -35,10 +44,8 @@ export default function Header({ locale, labels }: { locale: Locale; labels: Hea
     ["/blog", labels.blog], ["/about", labels.about], ["/contact", labels.contact]
   ];
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
-  const postJobHref =
-    user?.role === "employer" ? localePath(locale, "/employer/jobs/new")
-      : user ? localePath(locale, dash[user.role])
-        : localePath(locale, "/auth/register?role=employer");
+  // "Post a Job" is only for signed-in employers (hidden while the session is loading, and for everyone else).
+  const showPostJob = user?.role === "employer";
 
   return (
     <header className="site-header">
@@ -47,16 +54,20 @@ export default function Header({ locale, labels }: { locale: Locale; labels: Hea
           <span className="logo-mark">PJ</span>
           <span><span className="logo-name">{labels.siteName}</span><br /><span className="logo-sub">{labels.siteSub}</span></span>
         </Link>
+        <button type="button" className="nav-toggle" aria-expanded={open} aria-controls="site-menu" aria-label={labels.menu} onClick={() => setOpen((o) => !o)}>
+          <span className="nav-toggle-bar" aria-hidden="true" />
+        </button>
+        {/* One set of links/actions for every screen size; CSS turns this into a dropdown panel on small screens. */}
+        <div id="site-menu" className={`header-menu${open ? " open" : ""}`} onClick={(e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); }}>
         <nav className="main-nav" aria-label={labels.menu}>
           {NAV.map(([href, label]) => (
             <Link key={href} href={localePath(locale, href)} className={isActive(href) ? "active" : undefined} aria-current={isActive(href) ? "page" : undefined}>{label}</Link>
           ))}
         </nav>
         <div className="header-actions">
-          <Link className="btn btn-dark" href={postJobHref}>{labels.postJob}</Link>
-          <Link className="btn btn-green" href={localePath(locale, "/jobs")}>{labels.findJobs}</Link>
+          {showPostJob && <Link className="btn btn-dark" href={localePath(locale, "/employer/jobs/new")}>{labels.postJob}</Link>}
           <Suspense fallback={null}><LanguageSwitcher locale={locale} label={labels.language} /></Suspense>
-          <span>
+          <span className="header-auth">
             {user === undefined ? null : !user ? (
               <>
                 <Link className="btn btn-link" href={localePath(locale, "/auth/login")}>{labels.signIn}</Link>
@@ -73,6 +84,7 @@ export default function Header({ locale, labels }: { locale: Locale; labels: Hea
               </>
             )}
           </span>
+        </div>
         </div>
       </div>
     </header>

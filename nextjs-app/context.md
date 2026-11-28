@@ -139,4 +139,6 @@ Structured builder (personal, summary, education, experience, skills, certificat
 
 ## Changelog
 
+- 2026-11-28 — Header fix: removed the duplicate "Find Jobs" CTA (the main-nav link is the only one); header is one non-wrapping row at ≥1201 px and collapses to a hamburger dropdown (`components/Header.tsx`, `.header-menu`/`.nav-toggle` in `app/globals.css`) — same elements for every width, closes on link click/Escape/route change. Checked in headless Chrome at 1920/1440/1280/1201/1200/1024/768/430/390 px (en + ur).
+- 2026-11-28 — Staging bug-fix pass (see `docs/bug-fix-report.md`): failed job searches now show an error instead of "no jobs"; Closing Soon empty state; loading state for /jobs; admin job list flags approved-but-past-deadline jobs as Expired; date-rule regression tests (231 tests pass). Recovered the three deleted jobs to `docs/recovery/deleted-jobs-recovery.json` (draft-only, not restored). Staging appears to run `legacy/v1` (Redis) — confirm before deploying.
 - 2026-11-23 — Phase 0 audit; Phases 1–9 implemented (schema + 8 migrations, workflow functions, RLS, storage, auth, public site, candidate/employer/admin dashboards, i18n, SEO, scripts, docs). 221 tests passing; build green; live-Supabase verification outstanding.

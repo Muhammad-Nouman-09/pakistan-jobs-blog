@@ -28,7 +28,7 @@ export const publicSite = {
     "jobs.metaDescription": "Search current government and private jobs in Pakistan by city, category, salary and job type. Every listing is reviewed and shows its real last date.",
     "jobs.sub": "Search live listings — every job is reviewed before it is published.", "jobs.sectorTabs": "Sector", "jobs.allJobs": "All jobs",
     "jobs.category": "Category", "jobs.allCategories": "All categories", "jobs.allProvinces": "All provinces", "jobs.allCities": "All cities",
-    "jobs.minSalary": "Minimum salary", "jobs.anySalary": "Any salary", "jobs.noMatch": "No jobs match that search yet. Try a different word or clear a filter.",
+    "jobs.minSalary": "Minimum salary", "jobs.anySalary": "Any salary", "jobs.loading": "Loading jobs...", "jobs.noClosing": "No closing jobs right now.", "jobs.noMatch": "No jobs match that search yet. Try a different word or clear a filter.",
     "jobs.closingSoon": "Closing soon", "jobs.closingSoonSub": "Earliest deadline first.", "jobs.closesOn": "Closes {date} ({n} days left)",
     "jobs.safe": "never pay anyone for a job. Check how to apply on each listing.",
 
@@ -91,7 +91,7 @@ export const publicSite = {
     "jobs.metaDescription": "شہر، زمرہ، تنخواہ اور نوکری کی قسم کے مطابق پاکستان میں موجودہ سرکاری اور نجی نوکریاں تلاش کریں۔ ہر اشتہار جانچا جاتا ہے اور اصل آخری تاریخ دکھاتا ہے۔",
     "jobs.sub": "لائیو اشتہارات تلاش کریں — ہر نوکری شائع ہونے سے پہلے جانچی جاتی ہے۔", "jobs.sectorTabs": "شعبہ", "jobs.allJobs": "تمام نوکریاں",
     "jobs.category": "زمرہ", "jobs.allCategories": "تمام زمرے", "jobs.allProvinces": "تمام صوبے", "jobs.allCities": "تمام شہر",
-    "jobs.minSalary": "کم از کم تنخواہ", "jobs.anySalary": "کوئی بھی تنخواہ", "jobs.noMatch": "اس تلاش سے ابھی کوئی نوکری نہیں ملی۔ کوئی اور لفظ آزمائیں یا فلٹر ہٹائیں۔",
+    "jobs.minSalary": "کم از کم تنخواہ", "jobs.anySalary": "کوئی بھی تنخواہ", "jobs.loading": "نوکریاں لوڈ ہو رہی ہیں...", "jobs.noClosing": "اس وقت کوئی نوکری جلد بند ہونے والی نہیں ہے۔", "jobs.noMatch": "اس تلاش سے ابھی کوئی نوکری نہیں ملی۔ کوئی اور لفظ آزمائیں یا فلٹر ہٹائیں۔",
     "jobs.closingSoon": "جلد ختم ہونے والی", "jobs.closingSoonSub": "سب سے قریبی آخری تاریخ پہلے۔", "jobs.closesOn": "{date} کو ختم ({n} دن باقی)",
     "jobs.safe": "نوکری کے لیے کبھی کسی کو پیسے نہ دیں۔ ہر اشتہار میں درخواست کا طریقہ دیکھیں۔",
 

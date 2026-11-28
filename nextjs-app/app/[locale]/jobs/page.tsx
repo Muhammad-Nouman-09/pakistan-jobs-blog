@@ -43,7 +43,7 @@ export default async function JobsPage(props: PageProps) {
     sort: pick(one(sp.sort), SORTS),
     page: pageParam(sp.page)
   };
-  const [{ rows, total, configured }, facets, soon] = await Promise.all([
+  const [{ rows, total, configured, error }, facets, soon] = await Promise.all([
     searchJobs(params, locale), getFacets(locale), searchJobs({ sort: "deadline", pageSize: 6 }, locale)
   ]);
   const keep: Record<string, string | undefined> = {
@@ -127,6 +127,7 @@ export default async function JobsPage(props: PageProps) {
                     const card = <JobCard key={j.job_id} job={j} locale={locale} t={t} />;
                     return i === 4 ? [card, <AdSlot key="ad" slot="inFeed" locale={locale} />] : [card];
                   })
+                : error ? <p className="notice">{t("err.generic")}</p>
                 : configured && <p>{t("jobs.noMatch")}</p>}
             </div>
             <Pagination page={params.page ?? 1} total={total} pageSize={JOBS_PER_PAGE} basePath={l("/jobs")} params={keep} t={t} />
@@ -134,17 +135,21 @@ export default async function JobsPage(props: PageProps) {
           <aside className="sidebar">
             <h3>{t("jobs.closingSoon")}</h3>
             <p className="muted">{t("jobs.closingSoonSub")}</p>
-            <ul>
-              {soon.rows.map((j) => {
-                const d = daysLeft(j.deadline);
-                return (
-                  <li key={j.job_id}>
-                    <Link href={l(`/jobs/${j.slug}`)} dir="auto">{j.title}</Link><br />
-                    <span className="d">{d === null ? "" : t("jobs.closesOn", { date: formatDate(j.deadline, locale), n: d })}</span>
-                  </li>
-                );
-              })}
-            </ul>
+            {soon.error ? <p className="notice">{t("err.generic")}</p>
+              : soon.rows.length === 0 ? <p className="muted">{t("jobs.noClosing")}</p>
+              : (
+                <ul>
+                  {soon.rows.map((j) => {
+                    const d = daysLeft(j.deadline);
+                    return (
+                      <li key={j.job_id}>
+                        <Link href={l(`/jobs/${j.slug}`)} dir="auto">{j.title}</Link><br />
+                        <span className="d">{d === null ? "" : t("jobs.closesOn", { date: formatDate(j.deadline, locale), n: d })}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             <AdSlot slot="sidebar" locale={locale} />
             <p className="notice" style={{ marginTop: 16 }}><strong>{t("home.safeTitle")}</strong> {t("jobs.safe")}</p>
           </aside>
